@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layouts/layout :: head('Người dùng')}"></head>
+<body>
+	<header th:replace="~{fragments/header :: header}"></header>
+	<main class="container narrow">
+		<div class="panel">
+			<h1 th:text="${user.id == null} ? 'Thêm người dùng' : 'Sửa người dùng'">Người dùng</h1>
+			<div th:replace="~{fragments/alerts :: alerts}"></div>
+			<form th:action="@{${user.id == null ? '/users' : '/users/' + user.id}}" th:object="${user}"
+				method="post" class="form-grid">
+				<label>Username</label>
+				<div>
+					<input type="text" th:field="*{username}" th:readonly="${user.id != null}" required>
+					<span class="field-error" th:errors="*{username}"></span>
+				</div>
+
+				<label>Email</label>
+				<div>
+					<input type="email" th:field="*{email}" th:readonly="${user.id != null}" required>
+					<span class="field-error" th:errors="*{email}"></span>
+				</div>
+
+				<label>Họ tên</label>
+				<div>
+					<input type="text" th:field="*{fullName}" required>
+					<span class="field-error" th:errors="*{fullName}"></span>
+				</div>
+
+				<label>Ảnh đại diện (URL)</label>
+				<div>
+					<input type="text" th:field="*{images}" placeholder="https://... hoặc /images/admin.svg (bỏ trống = ảnh mặc định)">
+					<span class="field-error" th:errors="*{images}"></span>
+				</div>
+
+				<label>Mật khẩu</label>
+				<div>
+					<input type="password" th:field="*{password}" th:required="${user.id == null}"
+						placeholder="Bỏ trống nếu không đổi">
+				</div>
+
+				<label>Vai trò</label>
+				<div>
+					<select th:field="*{roleId}">
+						<option th:each="r : ${roles}" th:value="${r.id}" th:text="${r.name}">USER</option>
+					</select>
+				</div>
+
+				<label>Kích hoạt</label>
+				<div><input type="checkbox" th:field="*{enabled}"></div>
+
+				<div>
+					<button class="btn primary" type="submit">Lưu</button>
+					<a class="btn secondary" th:href="@{/users}">Hủy</a>
+				</div>
+			</form>
+		</div>
+	</main>
+</body>
+</html>

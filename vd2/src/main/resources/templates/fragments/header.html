@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+	<header th:fragment="header" class="topbar">
+		<div class="brand">
+			<a th:href="@{/}">IOTSTAR SHOP</a>
+		</div>
+		<nav sec:authorize="isAuthenticated()">
+			<a th:href="@{/dashboard}">Dashboard</a>
+			<a th:href="@{/products}">Sản phẩm</a>
+			<a th:href="@{/users}" sec:authorize="hasRole('ADMIN')">Người dùng</a>
+		</nav>
+
+		<!-- Đã đăng nhập: avatar + họ tên + username/email + role (lấy từ CustomUserDetails) -->
+		<div class="account" sec:authorize="isAuthenticated()"
+			th:with="me=${#authentication.principal}">
+			<div class="user-box" th:with="avatar=${#strings.isEmpty(me.images) ? '/images/avatar-default.svg' : me.images}">
+				<img class="avatar" alt="Avatar" th:src="@{${avatar}}">
+				<div class="user-meta">
+					<span class="fullname" th:text="${me.fullName}">Nguyễn Văn A</span>
+					<small th:text="${me.username} + ' · ' + ${me.email}">nguyenvana · email@gmail.com</small>
+				</div>
+				<span class="role-badge" th:text="${me.role}">USER</span>
+			</div>
+			<form th:action="@{/logout}" method="post" style="display: inline">
+				<button class="link-button" type="submit">Đăng xuất</button>
+			</form>
+		</div>
+
+		<!-- Chưa đăng nhập -->
+		<div class="account" sec:authorize="!isAuthenticated()">
+			<a class="nav-link" th:href="@{/login}">Đăng nhập</a>
+			<a class="nav-link" th:href="@{/register}">Đăng ký</a>
+		</div>
+	</header>
+</body>
+</html>

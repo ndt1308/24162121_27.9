@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layouts/layout :: head('Không có quyền')}"></head>
+<body>
+	<header th:replace="~{fragments/header :: header}"></header>
+	<main class="container narrow">
+		<div class="panel">
+			<h1>403 - Không có quyền truy cập</h1>
+			<p>Bạn không có quyền vào trang này.</p>
+			<a class="btn primary" th:href="@{/dashboard}">Về Dashboard</a>
+		</div>
+	</main>
+</body>
+</html>

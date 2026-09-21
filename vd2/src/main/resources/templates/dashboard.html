@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layouts/layout :: head('Dashboard')}"></head>
+<body>
+	<header th:replace="~{fragments/header :: header}"></header>
+	<main class="container">
+		<h1>Dashboard</h1>
+		<div class="cards">
+			<div class="card" sec:authorize="hasRole('ADMIN')">
+				<b>Tổng số người dùng</b><strong th:text="${totalUsers}">0</strong>
+			</div>
+			<div class="card" sec:authorize="hasRole('ADMIN')">
+				<b>Tổng số sản phẩm</b><strong th:text="${totalProducts}">0</strong>
+			</div>
+			<div class="card">
+				<b>Sản phẩm của tôi</b><strong th:text="${myProducts}">0</strong>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

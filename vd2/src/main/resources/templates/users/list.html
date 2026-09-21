@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layouts/layout :: head('Người dùng')}"></head>
+<body>
+	<header th:replace="~{fragments/header :: header}"></header>
+	<main class="container">
+		<div class="page-title">
+			<h1>Quản lý người dùng</h1>
+			<a class="btn primary" th:href="@{/users/new}">+ Thêm người dùng</a>
+		</div>
+		<div th:replace="~{fragments/alerts :: alerts}"></div>
+
+		<form class="search" th:action="@{/users}" method="get">
+			<input type="text" name="keyword" th:value="${keyword}" placeholder="Tìm theo username, email hoặc họ tên">
+			<button class="btn primary" type="submit">Tìm</button>
+		</form>
+
+		<div class="table-wrap">
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th><th>Ảnh</th><th>Username</th><th>Email</th><th>Họ tên</th><th>Vai trò</th>
+						<th>Kích hoạt</th><th>Số sản phẩm</th><th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="u : ${page.content}">
+						<td th:text="${u.id}">1</td>
+						<td><img class="avatar" alt="avatar"
+							th:src="@{${#strings.isEmpty(u.images) ? '/images/avatar-default.svg' : u.images}}"></td>
+						<td th:text="${u.username}">username</td>
+						<td th:text="${u.email}">email</td>
+						<td th:text="${u.fullName}">name</td>
+						<td th:text="${u.roleName}">USER</td>
+						<td th:text="${u.enabled} ? 'Có' : 'Chưa'">Có</td>
+						<td th:text="${u.productCount}">0</td>
+						<td class="actions">
+							<a class="btn secondary small" th:href="@{/users/{id}/edit(id=${u.id})}">Sửa</a>
+							<form th:action="@{/users/{id}/delete(id=${u.id})}" method="post" style="display: inline"
+								onsubmit="return confirm('Xóa người dùng này và toàn bộ sản phẩm của họ?')">
+								<button class="btn danger small" type="submit">Xóa</button>
+							</form>
+						</td>
+					</tr>
+					<tr th:if="${page.empty}"><td colspan="9">Không có dữ liệu</td></tr>
+				</tbody>
+			</table>
+		</div>
+		<div th:replace="~{fragments/pagination :: pager(${page}, '/users', ${keyword})}"></div>
+	</main>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layouts/layout :: head('Thông báo')}"></head>
+<body>
+	<header th:replace="~{fragments/header :: header}"></header>
+	<main class="container narrow">
+		<div class="panel">
+			<h1>Có lỗi xảy ra</h1>
+			<div class="alert error" th:text="${message}">message</div>
+			<a class="btn secondary" th:href="@{/dashboard}">Về Dashboard</a>
+		</div>
+	</main>
+</body>
+</html>

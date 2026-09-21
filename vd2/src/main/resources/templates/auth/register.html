@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layouts/layout :: head('Đăng ký')}"></head>
+<body class="auth-page">
+	<div class="auth-card">
+		<h1>IOTSTAR SHOP</h1>
+		<h2>Đăng ký</h2>
+		<div th:replace="~{fragments/alerts :: alerts}"></div>
+		<form th:action="@{/register}" th:object="${registerDTO}" method="post">
+			<label>Họ và tên</label>
+			<input type="text" th:field="*{fullName}" required>
+			<div class="field-error" th:errors="*{fullName}"></div>
+
+			<label>Username</label>
+			<input type="text" th:field="*{username}" placeholder="vd: nguyenvana" required>
+			<div class="field-error" th:errors="*{username}"></div>
+
+			<label>Email</label>
+			<input type="email" th:field="*{email}" required>
+			<div class="field-error" th:errors="*{email}"></div>
+
+			<label>Mật khẩu</label>
+			<input type="password" th:field="*{password}" required>
+			<div class="field-error" th:errors="*{password}"></div>
+
+			<label>Nhập lại mật khẩu</label>
+			<input type="password" th:field="*{confirmPassword}" required>
+			<div class="field-error" th:errors="*{confirmPassword}"></div>
+
+			<button class="btn primary full mt" type="submit">Đăng ký</button>
+		</form>
+		<p>Đã có tài khoản? <a th:href="@{/login}">Đăng nhập</a></p>
+	</div>
+</body>
+</html>

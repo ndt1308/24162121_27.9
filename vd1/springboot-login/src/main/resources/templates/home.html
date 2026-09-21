@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layouts/layout :: head('Trang chủ')}"></head>
+<body>
+	<header th:replace="~{fragments/header :: header}"></header>
+	<main class="container">
+		<div class="panel">
+			<h1>Home</h1>
+			<p>Xin chào, <strong sec:authentication="principal.fullName">User</strong>!</p>
+		</div>
+	</main>
+	<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

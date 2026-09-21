@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+	<header th:fragment="header" class="topbar">
+		<div class="brand">
+			<a th:href="@{/}">IOTSTAR SHOP</a>
+		</div>
+		<nav></nav>
+		<div class="account" sec:authorize="isAuthenticated()">
+			<strong sec:authentication="principal.fullName">Họ tên</strong>
+			<small class="muted" sec:authentication="principal.email">email</small>
+			<span class="badge" sec:authentication="principal.roleName">USER</span>
+			<form th:action="@{/logout}" method="post" style="display: inline">
+				<button class="link-button" type="submit">Đăng xuất</button>
+			</form>
+		</div>
+	</header>
+</body>
+</html>
